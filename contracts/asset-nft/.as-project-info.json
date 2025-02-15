@@ -1,0 +1,7 @@
+{
+  "platform": "mychain",
+  "language": "c++",
+  "framework": "none",
+  "compilerVersion": "2.24",
+  "wasm": {}
+}

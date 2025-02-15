@@ -1,0 +1,10 @@
+-nostdinc
+-nostdinc++
+--language=c++
+--std=c++17
+-Wno-unknown-attributes
+-Wno-unused-variable
+-U__APPLE__
+-D_POSIX_SOURCE
+-I/Applications/AntChainStudio.app/Contents/Resources/app/mycdt/wasm-sysroot/include/c++/v1
+-I/Applications/AntChainStudio.app/Contents/Resources/app/mycdt/wasm-sysroot/include

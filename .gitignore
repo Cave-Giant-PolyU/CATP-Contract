@@ -1,3 +1,15 @@
+# project
+.DS_Store
+.vscode
+.idea
+
+# contract
+myfish.*.js
+
+local-test
+
+/keys
+
 # Logs
 logs
 *.log
