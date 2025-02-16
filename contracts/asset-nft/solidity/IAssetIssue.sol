@@ -11,7 +11,7 @@ interface IAssetIssue {
     identity indexed owner,
     string indexed tokenURI,
     uint256 tokenHash,
-    uint256 assetHash
+    uint128 assetHash
   );
 
   function mint(
@@ -19,6 +19,6 @@ interface IAssetIssue {
     uint256 tokenId,
     string memory _tokenUri,
     uint256 _tokenHash,
-    uint256 _assetHash
+    uint128 _assetHash
   ) external returns (string memory);
 }

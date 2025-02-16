@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+// MetaBridge Contracts
 pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
@@ -8,39 +9,50 @@ import '@openzeppelin/contracts/utils/Strings.sol';
 import './IAssetIssue.sol';
 
 contract MetaBridgeAssetContract is ERC721, ERC721URIStorage, Ownable, IAssetIssue {
+  using Strings for uint256;
+  using Strings for uint128;
+
   mapping(uint256 => uint256) private _tokenHashs;
   string private _baseTokenURI = '';
 
   constructor() ERC721('MetaBridgeAsset', 'MBA') Ownable(_msgSender()) {}
 
+  /**
+   * @dev Mint a nft to `to` by manager.
+   *
+   * Emits {IssueCertificate}.
+   */
   function mint(
     identity to,
     uint256 tokenId,
-    string memory _tokenUri,
-    uint256 _tokenHash,
-    uint256 _assetHash
+    string memory tokenUri,
+    uint256 assetTokenHash,
+    uint128 assetHash
   ) external override onlyOwner returns (string memory) {
     _mint(to, tokenId);
-    _setTokenURI(tokenId, _tokenUri);
-    _setTokenHash(tokenId, _tokenHash);
+    _setTokenURI(tokenId, tokenUri);
+    _setTokenHash(tokenId, assetTokenHash);
 
     string memory _fullTokenUri = tokenURI(tokenId);
-    emit IssueCertificate(tokenId, to, _fullTokenUri, _tokenHash, _assetHash);
+    emit IssueCertificate(tokenId, to, _fullTokenUri, assetTokenHash, assetHash);
 
+    identity contractId = identity(this);
     return
       string(
         abi.encodePacked(
-          '{"tokenId":',
+          '{"tokenId":"',
           Strings.toHexString(tokenId),
-          ',"owner":"',
+          '","owner":"',
           Strings.toHexString(to),
+          '","contractId":"',
+          Strings.toHexString(contractId),
           '","tokenUri":"',
           _fullTokenUri,
-          '","tokenHash":',
-          Strings.toHexString(_tokenHash),
-          ',"assetHash":',
-          Strings.toHexString(_assetHash),
-          '}'
+          '","tokenHash":"',
+          Strings.toHexString(assetTokenHash),
+          '","assetHash":"',
+          Strings.toHexString(assetHash),
+          '"}'
         )
       );
   }
