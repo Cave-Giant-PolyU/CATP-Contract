@@ -90,7 +90,7 @@ Grant user ${accountAddr} to prove that he purchased this asset on the Meta Brid
 
 ---
 
-授予用户 0x${accountAddr}，证明其在元桥数字资产平台购买此资产。资产信息如下：
+授予用户 ${accountAddr}，证明其在元桥数字资产平台购买此资产。资产信息如下：
 
 
 * 资产文件hash：${assetHash}
